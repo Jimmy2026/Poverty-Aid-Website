@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ending World Hunger - Showing Some Humanity</title>
+  <link rel="icon" href="Star of Mercy.png">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Part 1: Navbar Starter Code -->
+  <div class="navbar">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#data">Data</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#news">News</a></li>
+      <li><button id="theme-button">Toggle Dark Mode</button></li>
+      <li><button id="reduce-motion-button">Reduce Motion</button></li>
+    </ul>
+  </div>
+
+  <!-- Part 2: Flexbox Layout Starter Code -->
+  <div class="container">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+
+  <!-- Headings -->
+  <section id="home">
+    <div class="header-container">
+      <div class="header-item" id="header-image">
+        <!-- Change this image, make better Logo for Website -->
+        <img src="Hunger Fight.jpeg" alt="Logo" width="200" height="200" />
+      </div>
+      <div class="header-item" id="header-content">
+        <h1>Save a Life</h1>
+        <h3>Join the Battle against World Hunger</h3>
+        <div class="header-button">
+          <button type="button">Donate Now</button>
+          <button type="button">Donate Monthly</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>Why is this Important?</h2>
+    <iframe src="https://www.youtube.com/embed/W71xwoDFAoA" alt="Youtube Video" width="560" height="300"></iframe>
+    <p>World hunger is a pressing issue affecting millions of people globally. It's a problem rooted in poverty,
+      inequality, and food distribution. By addressing this issue, we can truly be a source of hope to the world.</p>
+  </section>
+
+
+  <!-- Data -->
+  <section id="data">
+    <h3>The Problem</h3>
+    <img src="Hunger Map.png" alt="World Hunger Statistics" width="400" height="300" />
+
+    <h4>World Hunger Statistics</h4>
+    <ul>
+      <li>Less than 15% have access to adequate nutrition.</li>
+      <li>15%-25% of the global population is undernourished.</li>
+      <li>25%-35% suffer from food insecurity.</li>
+      <li>35%-45% lack essential nutrients.</li>
+      <li>Over 45% are at risk of starvation.</li>
+    </ul>
+  </section>
+
+  <!-- Impact -->
+  <section id="impact">
+    <h2>The Impact of Hunger</h2>
+
+    <img src="Individual Consequence of Hunger.png" alt="Individual Impact of Hunger" width="400" height="300" />
+    <h3>Individual Consequences</h3>
+    <p>Hunger has lasting effects on individuals, leading to malnutrition, poor health, and reduced productivity.</p>
+
+    <img src="Economic Impact of Malnutrition.jpg" alt="Economic Impact of Hunger" width="400" height="300" />
+    <h3>Economic and Social Consequences</h3>
+    <p>World hunger can lead to economic instability and social unrest, affecting entire nations.</p>
+
+    <img src="Global Hunger Map.png" alt="Global Impact" width="400" height="300" />
+    <h3>Global Consequences</h3>
+    <p>Food scarcity in some regions can disrupt global food supply chains, impacting everyone.</p>
+  </section>
+
+  <!-- News -->
+  <section id="news">
+    <h2>Recent News on World Hunger</h2>
+    <a class="news-link" href="https://www.humanrightscareers.com/magazine/organizations-end-hunger/">
+      <article>
+        <h3>Efforts to Combat Hunger Worldwide</h3>
+        <p>Global initiatives are addressing hunger through sustainable solutions.</p>
+      </article>
+    </a>
+  </section>
+
+  <div class="footer">
+    <a href="https://www.worldhunger.org/learn-about-hunger/">Learn More</a>
+    <br>
+    <a href="https://hungerfreecolorado.org/contact-us/">Contact Us</a>
+  </div>
+
+
+  <div class="petition" id="petition">
+    <h2>Sign Our Petition</h2>
+    <div class="petition-container">
+      <div class="petition-para">
+        <p>World hunger is a pressing issue that affects millions of people globally. It is a problem rooted in poverty,
+          inequality, and food distribution. By addressing this issue, we can make a real difference in the lives of
+          those who suffer from hunger on a daily basis. Together, let's fight against world hunger and create a future
+          where everyone has access to adequate nutrition and a chance to thrive.</p>
+
+      </div>
+
+      <div class="signatures">
+        <p>🖊️ Hugh Jackman supports this.</p>
+        <p>🖊️ Kate Hudson supports this.</p>
+        <p>🖊️ Meghan Markle supports this.</p>
+        <p id="counter">
+          🖊️ 3 people have signed this petition and support this cause.
+        </p>
+      </div>
+    </div>
+
+    <!--- Sign Petition Form --->
+    <form id="sign-petition" title="sign-petition">
+      <input type="text" placeholder="Name" id="name" />
+      <input type="text" placeholder="Hometown" id="hometown" />
+      <input type="email" placeholder="Email" id="email" />
+    </form>
+
+    <!-- sign now button -->
+    <button id="sign-now-button">Sign Now</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="thanks-modal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div id="modal-text-container">
+        <p id="thanks-modal-content">
+          Thank you for signing our petition! We appreciate your support!
+        </p>
+        <!-- button here (stretch feature) -->
+        <button id="thanks-modal-button">Close</button>
+      </div>
+      <!-- image here-->
+      <img id="thanks-modal-content-img" src="Thank You.jpeg" />
+    </div>
+  </div>
+
+  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-left"></script>
+
+  <script src="index.js"></script>
+
+</body>
+
+</html>
