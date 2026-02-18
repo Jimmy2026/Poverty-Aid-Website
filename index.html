@@ -1,164 +1,1063 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <title>Ending World Hunger - Showing Some Humanity</title>
-  <link rel="icon" href="Star of Mercy.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Showing Some Humanity — End World Hunger</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --soil:       #2C1A0E;
+      --bark:       #4A2E1A;
+      --terracotta: #C26B3A;
+      --wheat:      #E8C87A;
+      --cream:      #F5EDD8;
+      --sand:       #EDE0C4;
+      --sage:       #7A8C6A;
+      --moss:       #4F6347;
+      --sky:        #B8C9D6;
+      --white:      #FDFAF4;
 
-  <link rel="stylesheet" href="style.css">
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Source Serif 4', Georgia, serif;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--soil);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== GRAIN OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+      background: rgba(44, 26, 14, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 200, 122, 0.15);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--wheat);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--terracotta); font-style: italic; }
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245, 237, 216, 0.7);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--wheat); }
+    .nav-cta {
+      background: var(--terracotta);
+      color: var(--white) !important;
+      padding: 0.45rem 1.2rem;
+      border-radius: 2px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--wheat) !important; color: var(--soil) !important; transform: translateY(-1px); }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image-col {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image-col img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform-origin: center;
+      animation: slowZoom 20s ease-in-out infinite alternate;
+    }
+    @keyframes slowZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.06); }
+    }
+    .hero-image-col::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, transparent 60%, var(--cream) 100%);
+    }
+    .hero-content-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 5rem 6rem 4rem;
+      background: var(--cream);
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.2s forwards;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      color: var(--soil);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.4s forwards;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+    .hero-stat {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--moss);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.55s forwards;
+    }
+    .hero-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--bark);
+      max-width: 38ch;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.7s forwards;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.85s forwards;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 2px solid var(--terracotta);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--soil);
+      border-color: var(--soil);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(44,26,14,0.2);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--soil);
+      padding: 0.85rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 2px solid var(--bark);
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover {
+      background: var(--bark);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2rem; right: 3rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 1.3s forwards;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: var(--terracotta);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== TICKER / BAND ===== */
+    .ticker-band {
+      background: var(--soil);
+      color: var(--wheat);
+      padding: 0.75rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 2px solid var(--terracotta);
+      border-bottom: 2px solid var(--terracotta);
+    }
+    .ticker-track {
+      display: inline-flex;
+      animation: tickerScroll 30s linear infinite;
+    }
+    .ticker-item {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0 3rem;
+    }
+    .ticker-dot {
+      color: var(--terracotta);
+      margin: 0 0.5rem;
+    }
+    @keyframes tickerScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ===== SECTION SHARED ===== */
+    section { position: relative; }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 7rem 3rem;
+    }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: var(--terracotta);
+      opacity: 0.3;
+      max-width: 60px;
+    }
+
+    /* ===== DATA SECTION ===== */
+    #data {
+      background: var(--soil);
+      color: var(--cream);
+    }
+    #data .section-label { color: var(--wheat); }
+    #data .section-label::after { background: var(--wheat); }
+    .data-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--wheat);
+      margin-bottom: 1rem;
+      max-width: 18ch;
+    }
+    .data-intro {
+      color: rgba(245, 237, 216, 0.65);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 45ch;
+      margin-bottom: 4rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 5rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(232, 200, 122, 0.1);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .stat-card:hover { background: rgba(194, 107, 58, 0.1); }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--terracotta), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stat-card:hover::before { opacity: 1; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 900;
+      color: var(--terracotta);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--wheat);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .stat-desc {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(245, 237, 216, 0.5);
+    }
+    .map-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .map-img-wrap {
+      position: relative;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .map-img-wrap img {
+      width: 100%;
+      border-radius: 4px;
+      filter: sepia(0.3) saturate(0.8);
+    }
+    .map-img-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 1px solid rgba(232, 200, 122, 0.2);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    .map-legend { display: flex; flex-direction: column; gap: 1.25rem; }
+    .legend-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .legend-bar {
+      width: 4px;
+      min-height: 48px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .legend-text h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--wheat);
+      margin-bottom: 0.25rem;
+    }
+    .legend-text p {
+      font-size: 0.8rem;
+      color: rgba(245, 237, 216, 0.5);
+      line-height: 1.5;
+    }
+
+    /* ===== IMPACT SECTION ===== */
+    #impact {
+      background: var(--sand);
+    }
+    .impact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--soil);
+      margin-bottom: 3.5rem;
+      max-width: 20ch;
+    }
+    .impact-headline em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+    .impact-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .impact-card {
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 20px rgba(44,26,14,0.06);
+      transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+    }
+    .impact-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(44,26,14,0.12);
+    }
+    .impact-img-wrap {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+    .impact-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease-out);
+      filter: sepia(0.2) saturate(0.9);
+    }
+    .impact-card:hover .impact-img-wrap img {
+      transform: scale(1.05);
+    }
+    .impact-tag {
+      position: absolute;
+      bottom: 1rem; left: 1rem;
+      background: var(--terracotta);
+      color: var(--white);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 2px;
+    }
+    .impact-body {
+      padding: 1.75rem;
+    }
+    .impact-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--soil);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .impact-body p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: var(--bark);
+    }
+    .impact-divider {
+      width: 32px; height: 2px;
+      background: var(--terracotta);
+      margin: 1rem 0;
+    }
+
+    /* ===== PETITION SECTION ===== */
+    #petition {
+      background: var(--cream);
+      border-top: 1px solid rgba(44,26,14,0.08);
+    }
+    .petition-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .petition-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--soil);
+      margin-bottom: 1.25rem;
+    }
+    .petition-headline em {
+      font-style: italic;
+      color: var(--terracotta);
+    }
+    .petition-body {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--bark);
+      margin-bottom: 2.5rem;
+    }
+    .sigs-wrap h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .signatures-list {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      max-height: 200px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+    .signatures-list::-webkit-scrollbar { width: 4px; }
+    .signatures-list::-webkit-scrollbar-track { background: var(--sand); }
+    .signatures-list::-webkit-scrollbar-thumb { background: var(--terracotta); border-radius: 2px; }
+    .sig-item {
+      font-size: 0.82rem;
+      color: var(--bark);
+      padding: 0.5rem 0.75rem;
+      background: var(--sand);
+      border-radius: 2px;
+      border-left: 3px solid var(--terracotta);
+      animation: fadeUp 0.4s var(--ease-out) forwards;
+    }
+    .sig-count {
+      margin-top: 1rem;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--terracotta);
+    }
+    .sig-count span { font-size: 0.8rem; color: var(--bark); font-family: var(--font-body); font-weight: 400; }
+    .form-wrap { display: flex; flex-direction: column; gap: 1rem; }
+    .form-wrap label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bark);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+    .form-group { display: flex; flex-direction: column; }
+    .form-input {
+      padding: 0.9rem 1.1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      background: var(--white);
+      border: 1.5px solid rgba(44,26,14,0.15);
+      border-radius: 3px;
+      color: var(--soil);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input::placeholder { color: rgba(44,26,14,0.3); }
+    .form-input:focus {
+      border-color: var(--terracotta);
+      box-shadow: 0 0 0 3px rgba(194,107,58,0.1);
+    }
+    .form-input.error {
+      border-color: #d94a4a;
+      box-shadow: 0 0 0 3px rgba(217, 74, 74, 0.1);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .sign-btn {
+      background: var(--terracotta);
+      color: var(--white);
+      border: none;
+      padding: 1rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+    .sign-btn:hover {
+      background: var(--soil);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(44,26,14,0.2);
+    }
+    .sign-btn:active { transform: translateY(0); }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(44,26,14,0.7);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--cream);
+      max-width: 480px; width: 90%;
+      padding: 3rem 2.5rem;
+      border-radius: 6px;
+      text-align: center;
+      position: relative;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.35s var(--ease-out);
+      border-top: 4px solid var(--terracotta);
+    }
+    .modal-overlay.open .modal-box {
+      transform: translateY(0) scale(1);
+    }
+    .modal-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .modal-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--soil);
+      margin-bottom: 0.75rem;
+    }
+    .modal-box p {
+      font-size: 0.9rem;
+      color: var(--bark);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+    .modal-close {
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--soil); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--soil);
+      color: var(--cream);
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--wheat);
+    }
+    .footer-logo span { color: var(--terracotta); font-style: italic; }
+    .footer-links {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245,237,216,0.5);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--wheat); }
+    .footer-note {
+      font-size: 0.75rem;
+      color: rgba(245,237,216,0.3);
+      width: 100%;
+    }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      #home { grid-template-columns: 1fr; }
+      .hero-image-col { height: 45vh; }
+      .hero-content-col { padding: 3rem 2rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .impact-cards { grid-template-columns: 1fr; }
+      .petition-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .map-container { grid-template-columns: 1fr; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .section-inner { padding: 5rem 1.5rem; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .nav-links li:not(:last-child) { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
 <body>
 
-  <!-- Part 1: Navbar Starter Code -->
-  <div class="navbar">
-    <ul>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Showing Some <span>Humanity</span></div>
+    <ul class="nav-links">
       <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#data">Data</a></li>
+      <li><a href="#data">The Crisis</a></li>
       <li><a href="#impact">Impact</a></li>
-      <li><a href="#news">News</a></li>
-      <li><button id="theme-button">Toggle Dark Mode</button></li>
-      <li><button id="reduce-motion-button">Reduce Motion</button></li>
+      <li><a href="#petition">Take Action</a></li>
+      <li><a href="https://www.wfp.org/donate" target="_blank" rel="noopener" class="nav-cta">Donate</a></li>
     </ul>
-  </div>
+  </nav>
 
-  <!-- Part 2: Flexbox Layout Starter Code -->
-  <div class="container">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-  </div>
-
-  <!-- Headings -->
+  <!-- HERO -->
   <section id="home">
-    <div class="header-container">
-      <div class="header-item" id="header-image">
-        <!-- Change this image, make better Logo for Website -->
-        <img src="Hunger Fight.jpeg" alt="Logo" width="200" height="200" />
+    <div class="hero-image-col">
+      <img
+        src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&auto=format&fit=crop&q=80"
+        alt="Children in need"
+      />
+    </div>
+    <div class="hero-content-col">
+      <p class="hero-eyebrow">A Global Crisis</p>
+      <h1 class="hero-headline">Save a Life.<br /><em>Change</em> the World.</h1>
+      <p class="hero-stat">"Every night, 733 million people go to bed hungry."</p>
+      <p class="hero-body">
+        World hunger is not an inevitable reality — it's a solvable crisis. 
+        Join the battle against food insecurity and help build a future where 
+        every person has access to adequate nutrition.
+      </p>
+      <div class="hero-buttons">
+        <a href="https://www.wfp.org/donate" target="_blank" rel="noopener">
+          <button class="btn-primary">Donate Now</button>
+        </a>
+        <a href="https://www.wfp.org/donate" target="_blank" rel="noopener">
+          <button class="btn-outline">Give Monthly</button>
+        </a>
       </div>
-      <div class="header-item" id="header-content">
-        <h1>Save a Life</h1>
-        <h3>Join the Battle against World Hunger</h3>
-        <div class="header-button">
-          <button type="button">Donate Now</button>
-          <button type="button">Donate Monthly</button>
+      <div class="hero-scroll-hint">
+        <span>Scroll to explore</span>
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-band" aria-hidden="true">
+    <div class="ticker-track">
+      <span class="ticker-item">733M people face hunger daily <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">1 in 11 people are undernourished <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">$40 can feed a child for a month <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Hunger is the #1 cause of death worldwide <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">45% of child deaths are linked to malnutrition <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Food waste could feed 2 billion people <span class="ticker-dot">◆</span></span>
+      <!-- duplicate for infinite scroll -->
+      <span class="ticker-item">733M people face hunger daily <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">1 in 11 people are undernourished <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">$40 can feed a child for a month <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Hunger is the #1 cause of death worldwide <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">45% of child deaths are linked to malnutrition <span class="ticker-dot">◆</span></span>
+      <span class="ticker-item">Food waste could feed 2 billion people <span class="ticker-dot">◆</span></span>
+    </div>
+  </div>
+
+  <!-- DATA -->
+  <section id="data">
+    <div class="section-inner">
+      <p class="section-label reveal">By the Numbers</p>
+      <h2 class="data-headline reveal reveal-delay-1">The Scale of the Problem</h2>
+      <p class="data-intro reveal reveal-delay-2">
+        These aren't abstract figures. Behind every statistic is a child, a family, a community 
+        struggling to survive. Understanding the scope of hunger is the first step to ending it.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <div class="stat-number">733M</div>
+          <div class="stat-label">People Go Hungry</div>
+          <p class="stat-desc">Every single day, 733 million people worldwide don't have enough food to eat.</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-number">45%</div>
+          <div class="stat-label">Child Deaths</div>
+          <p class="stat-desc">Nearly half of all child deaths under age 5 are linked to undernutrition.</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-number">$40</div>
+          <div class="stat-label">Feeds a Child</div>
+          <p class="stat-desc">Just $40 can provide lifesaving therapeutic food to a severely malnourished child for one month.</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-1">
+          <div class="stat-number">2B</div>
+          <div class="stat-label">Tons of Food Wasted</div>
+          <p class="stat-desc">About one-third of all food produced globally — 2 billion tons — is wasted each year.</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-number">135M</div>
+          <div class="stat-label">Acutely Food Insecure</div>
+          <p class="stat-desc">135 million people face acute food insecurity, the most severe stage of hunger.</p>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-number">3.1B</div>
+          <div class="stat-label">Can't Afford Healthy Food</div>
+          <p class="stat-desc">More than 3 billion people cannot afford a healthy diet — not due to lack of food, but economic inequality.</p>
+        </div>
+      </div>
+
+      <div class="map-container">
+        <div class="map-img-wrap reveal">
+          <img
+            src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&auto=format&fit=crop&q=80"
+            alt="Global food distribution"
+          />
+        </div>
+        <div class="map-legend reveal reveal-delay-1">
+          <h3 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--wheat); margin-bottom: 1.5rem; line-height: 1.2;">
+            Hunger is not evenly distributed — it's concentrated where it's least visible.
+          </h3>
+          <div class="legend-item">
+            <div class="legend-bar" style="background: #e74c3c;"></div>
+            <div class="legend-text">
+              <h4>Sub-Saharan Africa</h4>
+              <p>The highest rates of undernourishment globally — over 20% of the population faces chronic hunger.</p>
+            </div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-bar" style="background: var(--terracotta);"></div>
+            <div class="legend-text">
+              <h4>South & Southeast Asia</h4>
+              <p>Home to the largest number of hungry people in absolute terms despite decades of progress.</p>
+            </div>
+          </div>
+          <div class="legend-item">
+            <div class="legend-bar" style="background: var(--wheat);"></div>
+            <div class="legend-text">
+              <h4>Conflict Zones</h4>
+              <p>60% of the world's hungry live in areas affected by war and conflict, making aid delivery critical.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about">
-    <h2>Why is this Important?</h2>
-    <iframe src="https://www.youtube.com/embed/W71xwoDFAoA" alt="Youtube Video" width="560" height="300"></iframe>
-    <p>World hunger is a pressing issue affecting millions of people globally. It's a problem rooted in poverty,
-      inequality, and food distribution. By addressing this issue, we can truly be a source of hope to the world.</p>
-  </section>
-
-
-  <!-- Data -->
-  <section id="data">
-    <h3>The Problem</h3>
-    <img src="Hunger Map.png" alt="World Hunger Statistics" width="400" height="300" />
-
-    <h4>World Hunger Statistics</h4>
-    <ul>
-      <li>Less than 15% have access to adequate nutrition.</li>
-      <li>15%-25% of the global population is undernourished.</li>
-      <li>25%-35% suffer from food insecurity.</li>
-      <li>35%-45% lack essential nutrients.</li>
-      <li>Over 45% are at risk of starvation.</li>
-    </ul>
-  </section>
-
-  <!-- Impact -->
+  <!-- IMPACT -->
   <section id="impact">
-    <h2>The Impact of Hunger</h2>
+    <div class="section-inner">
+      <p class="section-label reveal">The Ripple Effect</p>
+      <h2 class="impact-headline reveal reveal-delay-1">Hunger doesn't just hurt — it <em>compounds</em>.</h2>
+      <div class="impact-cards">
 
-    <img src="Individual Consequence of Hunger.png" alt="Individual Impact of Hunger" width="400" height="300" />
-    <h3>Individual Consequences</h3>
-    <p>Hunger has lasting effects on individuals, leading to malnutrition, poor health, and reduced productivity.</p>
+        <div class="impact-card reveal">
+          <div class="impact-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=600&auto=format&fit=crop&q=80"
+              alt="Child health impact"
+            />
+            <span class="impact-tag">Individual</span>
+          </div>
+          <div class="impact-body">
+            <h3>A Life Diminished Before It Begins</h3>
+            <div class="impact-divider"></div>
+            <p>
+              Chronic hunger stunts physical growth and cognitive development in children. 
+              Malnourished kids are more likely to drop out of school, earn lower wages as 
+              adults, and face lifelong health consequences — perpetuating generational poverty.
+            </p>
+          </div>
+        </div>
 
-    <img src="Economic Impact of Malnutrition.jpg" alt="Economic Impact of Hunger" width="400" height="300" />
-    <h3>Economic and Social Consequences</h3>
-    <p>World hunger can lead to economic instability and social unrest, affecting entire nations.</p>
+        <div class="impact-card reveal reveal-delay-1">
+          <div class="impact-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1559526324-593bc073d938?w=600&auto=format&fit=crop&q=80"
+              alt="Economic impact"
+            />
+            <span class="impact-tag">Economic</span>
+          </div>
+          <div class="impact-body">
+            <h3>Economies Weakened from Within</h3>
+            <div class="impact-divider"></div>
+            <p>
+              Malnutrition costs developing economies up to 11% of GDP annually through 
+              lost productivity, increased healthcare burden, and reduced human capital. 
+              Hunger is not just a humanitarian issue — it's an economic one.
+            </p>
+          </div>
+        </div>
 
-    <img src="Global Hunger Map.png" alt="Global Impact" width="400" height="300" />
-    <h3>Global Consequences</h3>
-    <p>Food scarcity in some regions can disrupt global food supply chains, impacting everyone.</p>
-  </section>
+        <div class="impact-card reveal reveal-delay-2">
+          <div class="impact-img-wrap">
+            <img
+              src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&auto=format&fit=crop&q=80"
+              alt="Global consequences"
+            />
+            <span class="impact-tag">Global</span>
+          </div>
+          <div class="impact-body">
+            <h3>A World Made Unstable</h3>
+            <div class="impact-divider"></div>
+            <p>
+              Food insecurity drives migration, fuels conflict, and destabilizes entire regions. 
+              When food systems collapse, societies follow. Ending hunger isn't charity — 
+              it's the foundation of global peace and security.
+            </p>
+          </div>
+        </div>
 
-  <!-- News -->
-  <section id="news">
-    <h2>Recent News on World Hunger</h2>
-    <a class="news-link" href="https://www.humanrightscareers.com/magazine/organizations-end-hunger/">
-      <article>
-        <h3>Efforts to Combat Hunger Worldwide</h3>
-        <p>Global initiatives are addressing hunger through sustainable solutions.</p>
-      </article>
-    </a>
-  </section>
-
-  <div class="footer">
-    <a href="https://www.worldhunger.org/learn-about-hunger/">Learn More</a>
-    <br>
-    <a href="https://hungerfreecolorado.org/contact-us/">Contact Us</a>
-  </div>
-
-
-  <div class="petition" id="petition">
-    <h2>Sign Our Petition</h2>
-    <div class="petition-container">
-      <div class="petition-para">
-        <p>World hunger is a pressing issue that affects millions of people globally. It is a problem rooted in poverty,
-          inequality, and food distribution. By addressing this issue, we can make a real difference in the lives of
-          those who suffer from hunger on a daily basis. Together, let's fight against world hunger and create a future
-          where everyone has access to adequate nutrition and a chance to thrive.</p>
-
-      </div>
-
-      <div class="signatures">
-        <p>🖊️ Hugh Jackman supports this.</p>
-        <p>🖊️ Kate Hudson supports this.</p>
-        <p>🖊️ Meghan Markle supports this.</p>
-        <p id="counter">
-          🖊️ 3 people have signed this petition and support this cause.
-        </p>
       </div>
     </div>
+  </section>
 
-    <!--- Sign Petition Form --->
-    <form id="sign-petition" title="sign-petition">
-      <input type="text" placeholder="Name" id="name" />
-      <input type="text" placeholder="Hometown" id="hometown" />
-      <input type="email" placeholder="Email" id="email" />
-    </form>
-
-    <!-- sign now button -->
-    <button id="sign-now-button">Sign Now</button>
-  </div>
-
-  <!-- Modal -->
-  <div id="thanks-modal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content">
-      <div id="modal-text-container">
-        <p id="thanks-modal-content">
-          Thank you for signing our petition! We appreciate your support!
-        </p>
-        <!-- button here (stretch feature) -->
-        <button id="thanks-modal-button">Close</button>
+  <!-- PETITION -->
+  <section id="petition">
+    <div class="section-inner">
+      <div class="petition-layout">
+        <!-- LEFT: signatures -->
+        <div>
+          <p class="section-label reveal">Join the Movement</p>
+          <h2 class="petition-headline reveal reveal-delay-1">
+            Add your voice.<br />Be part of the <em>answer</em>.
+          </h2>
+          <p class="petition-body reveal reveal-delay-2">
+            Sign our petition calling on world leaders to prioritize ending food insecurity. 
+            Every name matters. Every signature sends a message. Together, we are impossible to ignore.
+          </p>
+          <div class="sigs-wrap reveal reveal-delay-3">
+            <h4>People who've signed</h4>
+            <div class="signatures-list" id="signatures-list">
+              <div class="sig-item">🖊 Hugh Jackman — New York, NY</div>
+              <div class="sig-item">🖊 Kate Hudson — Los Angeles, CA</div>
+              <div class="sig-item">🖊 Meghan Markle — London, UK</div>
+            </div>
+            <div class="sig-count"><span id="sig-count-num">3</span> <span>people have signed</span></div>
+          </div>
+        </div>
+        <!-- RIGHT: form -->
+        <div class="reveal reveal-delay-2">
+          <div class="form-wrap" id="petition-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input class="form-input" type="text" id="name" placeholder="Jane Doe" />
+              </div>
+              <div class="form-group">
+                <label for="hometown">City / Country</label>
+                <input class="form-input" type="text" id="hometown" placeholder="Oklahoma City, OK" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input class="form-input" type="email" id="email" placeholder="jane@email.com" />
+            </div>
+            <button class="sign-btn" id="sign-btn">Sign the Petition ✦</button>
+          </div>
+        </div>
       </div>
-      <!-- image here-->
-      <img id="thanks-modal-content-img" src="Thank You.jpeg" />
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Showing Some <span>Humanity</span></div>
+    <nav class="footer-links">
+      <a href="https://www.wfp.org" target="_blank" rel="noopener">World Food Programme</a>
+      <a href="https://www.worldhunger.org/learn-about-hunger/" target="_blank" rel="noopener">Learn More</a>
+      <a href="https://www.wfp.org/donate" target="_blank" rel="noopener">Donate</a>
+    </nav>
+    <p class="footer-note">
+      Built with ♡ as an advocacy portfolio project. Statistics sourced from the UN World Food Programme (2023–2024).
+    </p>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <div class="modal-icon">🌾</div>
+      <h3 id="modal-title">Thank you!</h3>
+      <p id="modal-body">Your signature has been added. Together, we're making a difference.</p>
+      <button class="modal-close" id="modal-close">Close</button>
     </div>
   </div>
 
-  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-left"></script>
+  <script>
+    // ===== REVEAL ON SCROLL =====
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
 
-  <script src="index.js"></script>
+    // ===== PETITION =====
+    let count = 3;
+    const sigList = document.getElementById('signatures-list');
+    const sigCount = document.getElementById('sig-count-num');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
 
+    document.getElementById('sign-btn').addEventListener('click', () => {
+      const name     = document.getElementById('name');
+      const hometown = document.getElementById('hometown');
+      const email    = document.getElementById('email');
+      let valid = true;
+
+      [name, hometown, email].forEach(el => {
+        el.classList.remove('error');
+        if (el.value.trim().length < 2) { el.classList.add('error'); valid = false; }
+      });
+      if (!email.value.includes('@') || !email.value.includes('.')) {
+        email.classList.add('error'); valid = false;
+      }
+      if (!valid) return;
+
+      const sig = document.createElement('div');
+      sig.className = 'sig-item';
+      sig.textContent = `🖊 ${name.value.trim()} — ${hometown.value.trim()}`;
+      sigList.appendChild(sig);
+      sigList.scrollTop = sigList.scrollHeight;
+      count++;
+      sigCount.textContent = count;
+
+      modalTitle.textContent = `Thank you, ${name.value.split(' ')[0]}!`;
+      modalBody.textContent  = `Your voice from ${hometown.value.trim()} has been added. ${count} people are now standing together.`;
+      modal.classList.add('open');
+
+      name.value = ''; hometown.value = ''; email.value = '';
+    });
+
+    document.getElementById('modal-close').addEventListener('click', () => modal.classList.remove('open'));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+  </script>
 </body>
-
 </html>
